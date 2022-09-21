@@ -433,7 +433,8 @@ def read_data():
                     else:
                         print("Action: Call Terminated (Silence)...")
 
-                if ("RING" in modem_data) or ("DATE" in modem_data) or ("TIME" in modem_data) or ("NMBR" in modem_data):
+                if ("RING" in modem_data.decode('utf-8')) or ("DATE" in modem_data.decode('utf-8')) or (
+                        "TIME" in modem_data.decode('utf-8')) or ("NMBR" in modem_data.decode('utf-8')):
                     # if "NMBR" in modem_data:
                     # 	print"Event Detail: Incomming call from phone number: " + (modem_data[5:]).strip()
                     # if "DATE" in modem_data:
