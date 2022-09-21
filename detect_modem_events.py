@@ -412,7 +412,7 @@ def read_data():
                 # print"ASCII Values of Modem Data: " + (' '.join(str(ord(c)) for c in modem_data))
 
                 # Busy Tone <DLE>b
-                if (chr(16) + chr(98)) in modem_data:
+                if (chr(16) + chr(98)) in modem_data.decode('utf-8'):
                     print("Event Detail: Busy Tone Detected on phone line...")
                     # Terminate the call
                     if not exec_AT_cmd("ATH"):
@@ -423,7 +423,7 @@ def read_data():
                         print("Action: Call Terminated (Busy Tone)...")
 
                 # Silence <DLE>s
-                if (chr(16) + chr(115)) == modem_data:
+                if (chr(16) + chr(115)) == modem_data.decode('utf-8'):
                     print("Event Detail: Silence detected on phone line...")
                     # Terminate the call
                     if not exec_AT_cmd("ATH"):
