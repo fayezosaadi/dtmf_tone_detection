@@ -98,16 +98,16 @@ def detect_COM_port():
                 pass
             else:
                 # Try to put Modem in Voice Mode
-                # if not exec_AT_cmd("AT+FCLASS=8", "OK"):
-                #     print("Error: Failed to put modem into voice mode.")
-                #     if analog_modem.isOpen():
-                #         analog_modem.close()
-                # else:
-                # Found the COM Port exit the loop
-                print("Modem COM Port is: " + com_port)
-                analog_modem.flushInput()
-                analog_modem.flushOutput()
-                break
+                if not exec_AT_cmd("AT+FCLASS=8", "OK"):
+                    print("Error: Failed to put modem into voice mode.")
+                    if analog_modem.isOpen():
+                        analog_modem.close()
+                else:
+                    # Found the COM Port exit the loop
+                    print("Modem COM Port is: " + com_port)
+                    analog_modem.flushInput()
+                    analog_modem.flushOutput()
+                    break
 
 
 # =================================================================
