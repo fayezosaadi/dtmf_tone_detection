@@ -243,10 +243,10 @@ def read_AT_cmd_response(expected_response="OK"):
             print(modem_response)
             # print("modem_response: " + modem_response.strip(' \t\n\r' + chr(16))).decode('utf-8')
             # Received expected Response
-            if expected_response == modem_response.strip(' \t\n\r' + chr(16)).decode('utf-8'):
+            if expected_response.encode() == modem_response.strip(' \t\n\r' + chr(16)):
                 return True
             # Failed to execute the command successfully
-            elif "ERROR" in modem_response.strip(' \t\n\r' + chr(16)).decode('utf-8'):
+            elif "ERROR".encode() in modem_response.strip(' \t\n\r' + chr(16)):
                 return False
             # Timeout
             elif (datetime.now() - start_time).seconds > MODEM_RESPONSE_READ_TIMEOUT:
