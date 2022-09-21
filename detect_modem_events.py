@@ -241,6 +241,7 @@ def read_AT_cmd_response(expected_response="OK"):
             # Read Modem Data on Serial Rx Pin
             modem_response = analog_modem.readline()
             print(modem_response)
+            logging.INFO("AT Command Response: " + modem_response.decode('utf-8').strip(' \t\n\r' + chr(16)))
             # print(type(modem_response.decode('utf-8').strip(' \t\n\r' + chr(16))))
             # print(modem_response.decode('utf-8').strip(' \t\n\r' + chr(16)))
             # print("modem_response: " + modem_response.strip(' \t\n\r' + chr(16))).decode('utf-8')
