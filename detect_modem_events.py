@@ -14,8 +14,6 @@ import time
 import threading
 import atexit
 import sys
-import re
-import wave
 from datetime import datetime
 import os
 import fcntl
@@ -71,6 +69,7 @@ def detect_COM_port():
         if 'tty' in com_port:
             # Try to open the COM Port and execute AT Command
             try:
+                print("com_port: " + com_port)
                 # Set the COM Port Settings
                 set_COM_port_settings(com_port)
                 analog_modem.open()
@@ -134,7 +133,6 @@ def init_modem_settings():
         # Flush any existing input outout data from the buffers
         analog_modem.flushInput()
         analog_modem.flushOutput()
-
     except:
         print("Error: unable to Initialize the Modem")
         sys.exit()
@@ -381,6 +379,7 @@ def go_offHook():
             print("Error: Unable to hang-up the call")
         else:
             print("\nAction: Call Terminated...")
+
     finally:
         # Enable global event listener
         disable_modem_event_listener = False
