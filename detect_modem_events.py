@@ -64,6 +64,7 @@ def detect_COM_port():
     com_ports = proc.communicate()[0]
     com_ports_list = com_ports.split('\n')
 
+    print("com_ports_list: " + com_ports_list)
     # Find the right port associated with the Voice Modem
     for com_port in com_ports_list:
         if 'tty' in com_port:
