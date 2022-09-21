@@ -377,22 +377,22 @@ def go_offHook():
 
         while 1:
             # Read data from the Modem
-            data_buffer = data_buffer + analog_modem.read()
-
-            # Check if <DLE>b is in the stream
-            if (chr(16) + chr(98)) in data_buffer:
-                print("\nNew Event: Busy Tone... (Call will be disconnected)")
-                break
-
-            # Check if <DLE>s is in the stream
-            if (chr(16) + chr(115)) in data_buffer:
-                print("\nNew Event: Silence Detected... (Call will be disconnected)")
-                break
-
-            # Check if <DLE><ETX> is in the stream
-            if "<DLE><ETX>" in data_buffer:
-                print("\nNew Event: <DLE><ETX> Char Received... (Call will be disconnected)")
-                break
+            # data_buffer = data_buffer + analog_modem.read()
+            #
+            # # Check if <DLE>b is in the stream
+            # if (chr(16) + chr(98)) in data_buffer:
+            #     print("\nNew Event: Busy Tone... (Call will be disconnected)")
+            #     break
+            #
+            # # Check if <DLE>s is in the stream
+            # if (chr(16) + chr(115)) in data_buffer:
+            #     print("\nNew Event: Silence Detected... (Call will be disconnected)")
+            #     break
+            #
+            # # Check if <DLE><ETX> is in the stream
+            # if "<DLE><ETX>" in data_buffer:
+            #     print("\nNew Event: <DLE><ETX> Char Received... (Call will be disconnected)")
+            #     break
 
             # Parse DTMF Digits, if found in the Modem Data
             # if len(re.findall('/(.+?)~', data_buffer)) > 0:
