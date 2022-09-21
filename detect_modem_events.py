@@ -478,12 +478,21 @@ def close_modem_port():
 # =================================================================
 
 
+# # Main Function
+# init_modem_settings()
+#
+# # Start a new thread to listen to modem data
+# data_listener_thread = threading.Thread(target=read_data)
+# data_listener_thread.start()
+#
+# # Close the Modem Port when the program terminates
+# atexit.register(close_modem_port)
+
 # Main Function
 init_modem_settings()
 
-# Start a new thread to listen to modem data
-data_listener_thread = threading.Thread(target=read_data)
-data_listener_thread.start()
-
 # Close the Modem Port when the program terminates
 atexit.register(close_modem_port)
+
+# Monitor Modem Serial Port
+read_data()
