@@ -379,10 +379,10 @@ def go_offHook():
             # Read data from the Modem
             # data_buffer = data_buffer + analog_modem.read()
             #
-            # # Check if <DLE>b is in the stream
-            # if (chr(16) + chr(98)) in data_buffer:
-            #     print("\nNew Event: Busy Tone... (Call will be disconnected)")
-            #     break
+            # Check if <DLE>b is in the stream
+            if (chr(16) + chr(98)) in data_buffer:
+                print("\nNew Event: Busy Tone... (Call will be disconnected)")
+                break
             #
             # # Check if <DLE>s is in the stream
             # if (chr(16) + chr(115)) in data_buffer:
@@ -402,9 +402,9 @@ def go_offHook():
             pass_dtmf_digits(DTMF_DIGITS)
 
             # wait for a second before closing the call.
-            time.sleep(1)
-
-            break
+            # time.sleep(1)
+            #
+            # break
 
         data_buffer = ""
 
