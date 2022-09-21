@@ -464,12 +464,12 @@ def read_data():
 
                 if ("RING" in modem_data.decode('utf-8')) or ("DATE" in modem_data.decode('utf-8')) or (
                         "TIME" in modem_data.decode('utf-8')) or ("NMBR" in modem_data.decode('utf-8')):
-                    if "NMBR" in modem_data:
-                        print("Event Detail: Incomming call from phone number: " + (modem_data[5:]).strip())
-                    if "DATE" in modem_data:
-                        print("Event Detail: Service provider date: " + (modem_data[5:]).strip())
-                    if "TIME" in modem_data:
-                        print("Event Detail: Service provider time: " + (modem_data[5:]).strip())
+                    # if "NMBR" in modem_data.decode('utf-8'):
+                    #     print("Event Detail: Incomming call from phone number: " + (modem_data[5:]).strip())
+                    # if "DATE" in modem_data.decode('utf-8'):
+                    #     print("Event Detail: Service provider date: " + (modem_data[5:]).strip())
+                    # if "TIME" in modem_data.decode('utf-8'):
+                    #     print("Event Detail: Service provider time: " + (modem_data[5:]).strip())
                     if "RING" in modem_data.decode('utf-8').strip(chr(16)):
                         print("Event Detail: RING detected on phone line...")
                         ring_data = ring_data + modem_data
