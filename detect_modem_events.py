@@ -252,12 +252,16 @@ def read_AT_cmd_response(expected_response="OK"):
             elif (datetime.now() - start_time).seconds > MODEM_RESPONSE_READ_TIMEOUT:
                 return False
 
-    # except Exception as e:
-    #     logging.error(traceback.format_exc())
-    #     print("Error in read_modem_response function...")
-    #     return False
-    except:
-        print("Unexpected error:", sys.exc_info()[0])
+    except Exception as e:
+        logging.error(traceback.format_exc())
+        print("Error in read_modem_response function...")
+        print('An exception occurred: {}'.format(e))
+        print(e)
+        print(e.__doc__)
+        print(e.message)
+        return False
+    # except:
+    #     print("Unexpected error:", sys.exc_info()[0])
 
 
 # =================================================================
