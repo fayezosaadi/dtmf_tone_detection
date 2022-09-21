@@ -432,9 +432,9 @@ def read_data():
         if not disable_modem_event_listener:
             modem_data = analog_modem.readline()
 
-            if (modem_data != "") and (modem_data != (chr(13) + chr(10))):
+            if (modem_data.decode('utf-8') != "") and (modem_data.decode('utf-8') != (chr(13) + chr(10))):
                 print("\n-------------------------------------------")
-                print("New Event: " + modem_data.strip().decode('utf-8'))
+                print("New Event: " + modem_data.decode('utf-8').strip())
                 # print"ASCII Values of Modem Data: " + (' '.join(str(ord(c)) for c in modem_data))
 
                 # Busy Tone <DLE>b
@@ -467,7 +467,7 @@ def read_data():
                     # 	print"Event Detail: Service provider date: " + (modem_data[5:]).strip()
                     # if "TIME" in modem_data:
                     # 	print"Event Detail: Service provider time: " + (modem_data[5:]).strip()
-                    if "RING" in modem_data.strip(chr(16)):
+                    if "RING" in modem_data.decode('utf-8').strip(chr(16)):
                         print("Event Detail: RING detected on phone line...")
                         ring_data = ring_data + modem_data
                         ring_count = ring_data.count("RING")
