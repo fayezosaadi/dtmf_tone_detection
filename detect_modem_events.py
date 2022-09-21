@@ -87,7 +87,7 @@ def detect_COM_port():
         if 'tty' in com_port:
             # Try to open the COM Port and execute AT Command
             try:
-                print("com_port: " + com_port)
+                # print("com_port: " + com_port)
                 # Set the COM Port Settings
                 set_COM_port_settings(com_port)
                 analog_modem.open()
