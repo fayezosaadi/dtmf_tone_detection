@@ -361,7 +361,7 @@ def go_offHook():
                 break
 
             # Check if <DLE><ETX> is in the stream
-            if ("<DLE><ETX>").encode() in data_buffer:
+            if "<DLE><ETX>" in data_buffer:
                 print("\nNew Event: <DLE><ETX> Char Recieved... (Call will be disconnected)")
                 break
 
