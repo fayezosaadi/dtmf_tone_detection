@@ -239,7 +239,7 @@ def read_AT_cmd_response(expected_response="OK"):
             # Read Modem Data on Serial Rx Pin
             modem_response = analog_modem.readline()
             print(modem_response)
-            print(modem_response.strip(' \t\n\r' + chr(16)))
+            print("modem_response: " + modem_response.strip(' \t\n\r' + chr(16)))
             # Received expected Response
             if expected_response == modem_response.strip(' \t\n\r' + chr(16)):
                 return True
