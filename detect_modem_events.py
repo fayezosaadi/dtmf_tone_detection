@@ -470,7 +470,7 @@ def read_data():
                     #     print("Event Detail: Service provider date: " + (modem_data[5:]).strip())
                     # if "TIME" in modem_data.decode('utf-8'):
                     #     print("Event Detail: Service provider time: " + (modem_data[5:]).strip())
-                    if "RING" in modem_data.strip(chr(16)).decode('utf-8'):
+                    if "RING" in modem_data.decode('utf-8').strip(chr(16)):
                         print("Event Detail: RING detected on phone line...")
                         ring_data = ring_data + modem_data
                         ring_count = ring_data.count("RING")
@@ -508,21 +508,21 @@ def close_modem_port():
 # =================================================================
 
 
+# # Main Function
+# init_modem_settings()
+#
+# # Start a new thread to listen to modem data
+# data_listener_thread = threading.Thread(target=read_data)
+# data_listener_thread.start()
+#
+# # Close the Modem Port when the program terminates
+# atexit.register(close_modem_port)
+
 # Main Function
 init_modem_settings()
-
-# Start a new thread to listen to modem data
-data_listener_thread = threading.Thread(target=read_data)
-data_listener_thread.start()
 
 # Close the Modem Port when the program terminates
 atexit.register(close_modem_port)
 
-# # Main Function
-# init_modem_settings()
-#
-# # Close the Modem Port when the program terminates
-# atexit.register(close_modem_port)
-#
-# # Monitor Modem Serial Port
-# read_data()
+# Monitor Modem Serial Port
+read_data()
