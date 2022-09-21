@@ -408,7 +408,7 @@ def read_data():
 
             if (modem_data != "") and (modem_data != (chr(13) + chr(10))):
                 print("\n-------------------------------------------")
-                print("New Event: " + modem_data.strip())
+                print("New Event: " + modem_data.strip().decode('utf-8'))
                 # print"ASCII Values of Modem Data: " + (' '.join(str(ord(c)) for c in modem_data))
 
                 # Busy Tone <DLE>b
@@ -417,7 +417,7 @@ def read_data():
                     # Terminate the call
                     if not exec_AT_cmd("ATH"):
                         print("Error: Busy Tone - Failed to terminate the call")
-                        print("Trying to revoer the serial port")
+                        print("Trying to revere the serial port")
                         recover_from_error()
                     else:
                         print("Action: Call Terminated (Busy Tone)...")
