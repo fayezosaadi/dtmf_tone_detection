@@ -35,21 +35,35 @@ disable_modem_event_listener = True
 # Global Modem Object
 analog_modem = serial.Serial()
 
+
 # =================================================================
 # Set COM Port settings
 # =================================================================
-# def set_COM_port_settings(com_port):
-analog_modem.port = "/dev/ttyACM0"
-# analog_modem.port = com_port
-analog_modem.baudrate = 57600  # 9600 #115200
-analog_modem.bytesize = serial.EIGHTBITS  # number of bits per bytes
-analog_modem.parity = serial.PARITY_NONE  # set parity check: no parity
-analog_modem.stopbits = serial.STOPBITS_ONE  # number of stop bits
-analog_modem.timeout = 3  # non-block read
-analog_modem.xonxoff = False  # disable software flow control
-analog_modem.rtscts = False  # disable hardware (RTS/CTS) flow control
-analog_modem.dsrdtr = False  # disable hardware (DSR/DTR) flow control
-analog_modem.writeTimeout = 3  # timeout for write
+# # def set_COM_port_settings(com_port):
+# analog_modem.port = "/dev/ttyACM0"
+# # analog_modem.port = com_port
+# analog_modem.baudrate = 57600  # 9600 #115200
+# analog_modem.bytesize = serial.EIGHTBITS  # number of bits per bytes
+# analog_modem.parity = serial.PARITY_NONE  # set parity check: no parity
+# analog_modem.stopbits = serial.STOPBITS_ONE  # number of stop bits
+# analog_modem.timeout = 3  # non-block read
+# analog_modem.xonxoff = False  # disable software flow control
+# analog_modem.rtscts = False  # disable hardware (RTS/CTS) flow control
+# analog_modem.dsrdtr = False  # disable hardware (DSR/DTR) flow control
+# analog_modem.writeTimeout = 3  # timeout for write
+
+def set_COM_port_settings(com_port):
+    # analog_modem.port = "/dev/ttyACM0"
+    analog_modem.port = com_port
+    analog_modem.baudrate = 57600  # 9600 #115200
+    analog_modem.bytesize = serial.EIGHTBITS  # number of bits per bytes
+    analog_modem.parity = serial.PARITY_NONE  # set parity check: no parity
+    analog_modem.stopbits = serial.STOPBITS_ONE  # number of stop bits
+    analog_modem.timeout = 3  # non-block read
+    analog_modem.xonxoff = False  # disable software flow control
+    analog_modem.rtscts = False  # disable hardware (RTS/CTS) flow control
+    analog_modem.dsrdtr = False  # disable hardware (DSR/DTR) flow control
+    analog_modem.writeTimeout = 3  # timeout for write
 
 
 # =================================================================
@@ -58,40 +72,40 @@ analog_modem.writeTimeout = 3  # timeout for write
 # =================================================================
 # Detect Com Port
 # =================================================================
-# def detect_COM_port():
-#     print("detect_COM_port method")
-#     # List all the Serial COM Ports on Raspberry Pi
-#     proc = subprocess.Popen(['ls /dev/tty[A-Za-z]*'], shell=True, stdout=subprocess.PIPE)
-#     print("proc: " + proc)
-#     com_ports = proc.communicate()[0]
-#     print("dcom_ports: " + com_ports)
-#     com_ports_list = com_ports.split('\n')
-#     print("com_ports_list: " + com_ports_list)
-#
-#     # Find the right port associated with the Voice Modem
-#     for com_port in com_ports_list:
-#         if 'tty' in com_port:
-#             # Try to open the COM Port and execute AT Command
-#             try:
-#                 print("com_port: " + com_port)
-#                 # Set the COM Port Settings
-#                 set_COM_port_settings(com_port)
-#                 analog_modem.open()
-#             except:
-#                 print("Unable to open COM Port: " + com_port)
-#                 pass
-#             else:
-#                 # Try to put Modem in Voice Mode
-#                 if not exec_AT_cmd("AT+FCLASS=8", "OK"):
-#                     print("Error: Failed to put modem into voice mode.")
-#                     if analog_modem.isOpen():
-#                         analog_modem.close()
-#                 else:
-#                     # Found the COM Port exit the loop
-#                     print("Modem COM Port is: " + com_port)
-#                     analog_modem.flushInput()
-#                     analog_modem.flushOutput()
-#                     break
+def detect_COM_port():
+    print("detect_COM_port method" + subprocess)
+    # List all the Serial COM Ports on Raspberry Pi
+    proc = subprocess.Popen(['ls /dev/tty[A-Za-z]*'], shell=True, stdout=subprocess.PIPE)
+    # print("proc: " + proc)
+    com_ports = proc.communicate()[0]
+    # print("dcom_ports: " + com_ports)
+    com_ports_list = com_ports.split('\n')
+    # print("com_ports_list: " + com_ports_list)
+
+    # Find the right port associated with the Voice Modem
+    for com_port in com_ports_list:
+        if 'tty' in com_port:
+            # Try to open the COM Port and execute AT Command
+            try:
+                print("com_port: " + com_port)
+                # Set the COM Port Settings
+                set_COM_port_settings(com_port)
+                analog_modem.open()
+            except:
+                print("Unable to open COM Port: " + com_port)
+                pass
+            else:
+                # Try to put Modem in Voice Mode
+                if not exec_AT_cmd("AT+FCLASS=8", "OK"):
+                    print("Error: Failed to put modem into voice mode.")
+                    if analog_modem.isOpen():
+                        analog_modem.close()
+                else:
+                    # Found the COM Port exit the loop
+                    print("Modem COM Port is: " + com_port)
+                    analog_modem.flushInput()
+                    analog_modem.flushOutput()
+                    break
 
 
 # =================================================================
@@ -103,15 +117,15 @@ analog_modem.writeTimeout = 3  # timeout for write
 def init_modem_settings():
     # Detect and Open the Modem Serial COM Port
     try:
-        analog_modem.open()
-        # detect_COM_port()
+        # analog_modem.open()
+        detect_COM_port()
     except:
         print("Error: Unable to open the Serial Port.")
         sys.exit()
 
     # Initialize the Modem
     try:
-        # Flush any existing input outout data from the buffers
+        # Flush any existing input output data from the buffers
         analog_modem.flushInput()
         analog_modem.flushOutput()
 
@@ -478,21 +492,21 @@ def close_modem_port():
 # =================================================================
 
 
-# # Main Function
-# init_modem_settings()
-#
-# # Start a new thread to listen to modem data
-# data_listener_thread = threading.Thread(target=read_data)
-# data_listener_thread.start()
-#
-# # Close the Modem Port when the program terminates
-# atexit.register(close_modem_port)
-
 # Main Function
 init_modem_settings()
+
+# Start a new thread to listen to modem data
+data_listener_thread = threading.Thread(target=read_data)
+data_listener_thread.start()
 
 # Close the Modem Port when the program terminates
 atexit.register(close_modem_port)
 
-# Monitor Modem Serial Port
-read_data()
+# # Main Function
+# init_modem_settings()
+#
+# # Close the Modem Port when the program terminates
+# atexit.register(close_modem_port)
+#
+# # Monitor Modem Serial Port
+# read_data()
