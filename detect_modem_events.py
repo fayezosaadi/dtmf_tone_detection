@@ -255,17 +255,18 @@ def read_AT_cmd_response(expected_response="OK"):
             elif (datetime.now() - start_time).seconds > MODEM_RESPONSE_READ_TIMEOUT:
                 return False
 
-    # except Exception as e:
-    #     logging.error(traceback.format_exc())
-    #     print("Error in read_modem_response function...")
-    #     print('An exception occurred: {}'.format(e))
-    #     print(e)
-    #     print(e.__doc__)
-    #     print(e.message)
-    #     return False
-    # print("Unexpected error:", sys.exc_info()[0])
-    except:
+    except Exception as e:
+        logging.error(traceback.format_exc())
         print("Error in read_modem_response function...")
+        print('An exception occurred: {}'.format(e))
+        # print(e)
+        # print(e.__doc__)
+        # print(e.message)
+        return False
+    # print("Unexpected error:", sys.exc_info()[0])
+    # except:
+    #     print("Error in read_modem_response function...")
+    #     return False
 
 
 # =================================================================
@@ -356,7 +357,7 @@ def go_offHook():
     # Enable silence detection.
     # Select normal silence detection sensitivity
     # and a silence detection interval of 10 s.
-    # Call will be dropped on Silce Detection
+    # Call will be dropped on silence Detection
     # Change the code logic if required
     if not exec_AT_cmd("AT+VSD=128,100", "OK"):
         print("Error: Failed tp enable silence detection.")
@@ -390,7 +391,7 @@ def go_offHook():
 
             # Check if <DLE><ETX> is in the stream
             if "<DLE><ETX>" in data_buffer:
-                print("\nNew Event: <DLE><ETX> Char Recieved... (Call will be disconnected)")
+                print("\nNew Event: <DLE><ETX> Char Received... (Call will be disconnected)")
                 break
 
             # Parse DTMF Digits, if found in the Modem Data
@@ -463,20 +464,21 @@ def read_data():
 
                 if ("RING" in modem_data.decode('utf-8')) or ("DATE" in modem_data.decode('utf-8')) or (
                         "TIME" in modem_data.decode('utf-8')) or ("NMBR" in modem_data.decode('utf-8')):
-                    # if "NMBR" in modem_data:
-                    # 	print"Event Detail: Incomming call from phone number: " + (modem_data[5:]).strip()
-                    # if "DATE" in modem_data:
-                    # 	print"Event Detail: Service provider date: " + (modem_data[5:]).strip()
-                    # if "TIME" in modem_data:
-                    # 	print"Event Detail: Service provider time: " + (modem_data[5:]).strip()
-                    if "RING" in modem_data.strip(chr(16)):
+                    if "NMBR" in modem_data:
+                        print("Event Detail: Incomming call from phone number: " + (modem_data[5:]).strip())
+                    if "DATE" in modem_data:
+                        print("Event Detail: Service provider date: " + (modem_data[5:]).strip())
+                    if "TIME" in modem_data:
+                        print("Event Detail: Service provider time: " + (modem_data[5:]).strip())
+                    if "RING" in modem_data.decode('utf-8').strip(chr(16)):
                         print("Event Detail: RING detected on phone line...")
                         ring_data = ring_data + modem_data
                         ring_count = ring_data.count("RING")
 
                         if ring_count == RINGS_BEFORE_AUTO_ANSWER:
                             ring_data = ""
-                            # Go off-hook and detect DTMF Digits
+                            # Todo: Go off-hook and detect DTMF Digits, could ask to pass a password after beep,
+                            #  verify and send 6 else hang up the call.
                             go_offHook()
 
 
