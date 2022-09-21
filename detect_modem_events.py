@@ -18,6 +18,8 @@ from datetime import datetime
 import os
 import fcntl
 import subprocess
+import traceback
+import logging
 
 # =================================================================
 # Set these variables
@@ -250,9 +252,12 @@ def read_AT_cmd_response(expected_response="OK"):
             elif (datetime.now() - start_time).seconds > MODEM_RESPONSE_READ_TIMEOUT:
                 return False
 
+    # except Exception as e:
+    #     logging.error(traceback.format_exc())
+    #     print("Error in read_modem_response function...")
+    #     return False
     except:
-        print("Error in read_modem_response function...")
-        return False
+        print("Unexpected error:", sys.exc_info()[0])
 
 
 # =================================================================
