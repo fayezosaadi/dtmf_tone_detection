@@ -59,6 +59,7 @@ def set_COM_port_settings(com_port):
 # Detect Com Port
 # =================================================================
 def detect_COM_port():
+    print("detect_COM_port method")
     # List all the Serial COM Ports on Raspberry Pi
     proc = subprocess.Popen(['ls /dev/tty[A-Za-z]*'], shell=True, stdout=subprocess.PIPE)
     com_ports = proc.communicate()[0]
