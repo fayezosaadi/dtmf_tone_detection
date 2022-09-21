@@ -241,12 +241,12 @@ def read_AT_cmd_response(expected_response="OK"):
             # Read Modem Data on Serial Rx Pin
             modem_response = analog_modem.readline()
             print(modem_response)
-            print("modem_response: " + modem_response.strip(' \t\n\r' + chr(16)))
+            print("modem_response: " + modem_response.strip(' \t\n\r' + chr(16)).decode('utf-8'))
             # Received expected Response
-            if expected_response == modem_response.strip(' \t\n\r' + chr(16)):
+            if expected_response == modem_response.strip(' \t\n\r' + chr(16).decode('utf-8')):
                 return True
             # Failed to execute the command successfully
-            elif "ERROR" in modem_response.strip(' \t\n\r' + chr(16)):
+            elif "ERROR" in modem_response.strip(' \t\n\r' + chr(16).decode('utf-8')):
                 return False
             # Timeout
             elif (datetime.now() - start_time).seconds > MODEM_RESPONSE_READ_TIMEOUT:
@@ -502,21 +502,21 @@ def close_modem_port():
 # =================================================================
 
 
-# # Main Function
-# init_modem_settings()
-#
-# # Start a new thread to listen to modem data
-# data_listener_thread = threading.Thread(target=read_data)
-# data_listener_thread.start()
-#
-# # Close the Modem Port when the program terminates
-# atexit.register(close_modem_port)
-
 # Main Function
 init_modem_settings()
 
+# Start a new thread to listen to modem data
+data_listener_thread = threading.Thread(target=read_data)
+data_listener_thread.start()
+
 # Close the Modem Port when the program terminates
 atexit.register(close_modem_port)
-
-# Monitor Modem Serial Port
-read_data()
+#
+# # Main Function
+# init_modem_settings()
+#
+# # Close the Modem Port when the program terminates
+# atexit.register(close_modem_port)
+#
+# # Monitor Modem Serial Port
+# read_data()
