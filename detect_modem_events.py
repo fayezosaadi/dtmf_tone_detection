@@ -470,7 +470,7 @@ def read_data():
                     #     print("Event Detail: Service provider date: " + (modem_data[5:]).strip())
                     # if "TIME" in modem_data.decode('utf-8'):
                     #     print("Event Detail: Service provider time: " + (modem_data[5:]).strip())
-                    if "RING" in modem_data.decode('utf-8').strip(chr(16)):
+                    if "RING" in modem_data.strip(chr(16)).decode('utf-8'):
                         print("Event Detail: RING detected on phone line...")
                         ring_data = ring_data + modem_data
                         ring_count = ring_data.count("RING")
