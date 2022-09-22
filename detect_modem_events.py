@@ -24,7 +24,7 @@ import logging
 # =================================================================
 # Set these variables
 # =================================================================
-DTMF_DIGITS = '6666'  # Enter the DTMF digits that you want to pass (valid options: 0-9, * and #)
+DTMF_DIGITS = '56666789'  # Enter the DTMF digits that you want to pass (valid options: 0-9, * and #)
 # =================================================================
 
 RINGS_BEFORE_AUTO_ANSWER = 2  # Must be greater than 1
@@ -403,7 +403,7 @@ def go_offHook():
             pass_dtmf_digits(DTMF_DIGITS)
 
             # wait for a second before closing the call.
-            time.sleep(2)
+            time.sleep(3)
             #
             break
 
