@@ -24,7 +24,7 @@ import logging
 # =================================================================
 # Set these variables
 # =================================================================
-DTMF_DIGITS = '6'  # Enter the DTMF digits that you want to pass (valid options: 0-9, * and #)
+DTMF_DIGITS = '666'  # Enter the DTMF digits that you want to pass (valid options: 0-9, * and #)
 # =================================================================
 
 RINGS_BEFORE_AUTO_ANSWER = 2  # Must be greater than 1
@@ -293,7 +293,7 @@ def recover_from_error():
 # =================================================================
 # Pass DTMF Digits
 # =================================================================
-def pass_dtmf_digits(dtmf_digit):
+def pass_dtmf_digits(dtmf_digits):
     # set the default duration/length for DTMF/tone generation in 0.01 (milliseconds) s increments.
     # The default tone duration is 100 (1 second).
     DTMF_TONE_DURATION = 100
@@ -317,18 +317,18 @@ def pass_dtmf_digits(dtmf_digit):
                               '#': ['941', '1477']
                               }
 
-    # for dtmf_digit in dtmf_digits:
+    for dtmf_digit in dtmf_digits:
 
-    # The valid single characters are 0 - 9, #, *.
-    # Generates DTMF tone according to the passed characters.
-    print("Generating DTMF tone for: " + str(dtmf_digit))
-    freq1 = DTMF_TONES_FREQUENCIES[dtmf_digit][0]
-    freq2 = DTMF_TONES_FREQUENCIES[dtmf_digit][1]
-    # if not exec_AT_cmd("AT+VTS=[" + freq1 + "," + freq2 + "," + str(DTMF_TONE_DURATION) + "]"):
-    if not exec_AT_cmd("AT+VTS=6"):
-        print("Error: Failed to pass DTMF Digit : " + str(dtmf_digit))
+        # The valid single characters are 0 - 9, #, *.
+        # Generates DTMF tone according to the passed characters.
+        print("Generating DTMF tone for: " + str(dtmf_digit))
+        # freq1 = DTMF_TONES_FREQUENCIES[dtmf_digit][0]
+        # freq2 = DTMF_TONES_FREQUENCIES[dtmf_digit][1]
+        # if not exec_AT_cmd("AT+VTS=[" + freq1 + "," + freq2 + "," + str(DTMF_TONE_DURATION) + "]"):
+        if not exec_AT_cmd("AT+VTS=6"):
+            print("Error: Failed to pass DTMF Digit : " + str(dtmf_digit))
 
-        # time.sleep(GAP_BETWEEN_TWO_DTMF_DIGITS)
+        time.sleep(GAP_BETWEEN_TWO_DTMF_DIGITS)
 
 
 # =================================================================
