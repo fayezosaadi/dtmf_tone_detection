@@ -56,7 +56,7 @@ analog_modem = serial.Serial()
 
 def set_COM_port_settings(com_port):
     analog_modem.port = com_port
-    analog_modem.baudrate = 57600  # 9600 #115200
+    analog_modem.baudrate = 57600  # 57600  # 9600 # 115200
     analog_modem.bytesize = serial.EIGHTBITS  # number of bits per bytes
     analog_modem.parity = serial.PARITY_NONE  # set parity check: no parity
     analog_modem.stopbits = serial.STOPBITS_ONE  # number of stop bits
@@ -324,7 +324,8 @@ def pass_dtmf_digits(dtmf_digit):
     print("Generating DTMF tone for: " + str(dtmf_digit))
     freq1 = DTMF_TONES_FREQUENCIES[dtmf_digit][0]
     freq2 = DTMF_TONES_FREQUENCIES[dtmf_digit][1]
-    if not exec_AT_cmd("AT+VTS=[" + freq1 + "," + freq2 + "," + str(DTMF_TONE_DURATION) + "]"):
+    # if not exec_AT_cmd("AT+VTS=[" + freq1 + "," + freq2 + "," + str(DTMF_TONE_DURATION) + "]"):
+    if not exec_AT_cmd("AT+VTS=6"):
         print("Error: Failed to pass DTMF Digit : " + str(dtmf_digit))
 
         # time.sleep(GAP_BETWEEN_TWO_DTMF_DIGITS)
@@ -390,9 +391,9 @@ def go_offHook():
             #     break
             #
             # # Check if <DLE><ETX> is in the stream
-            # if "<DLE><ETX>" in data_buffer:
-            #     print("\nNew Event: <DLE><ETX> Char Received... (Call will be disconnected)")
-            #     break
+            if "<DLE><ETX>" in data_buffer:
+                print("\nNew Event: <DLE><ETX> Char Received... (Call will be disconnected)")
+                break
 
             # Parse DTMF Digits, if found in the Modem Data
             # if len(re.findall('/(.+?)~', data_buffer)) > 0:
