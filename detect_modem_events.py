@@ -296,7 +296,7 @@ def recover_from_error():
 def pass_dtmf_digits(dtmf_digit):
     # set the default duration/length for DTMF/tone generation in 0.01 (milliseconds) s increments.
     # The default tone duration is 100 (1 second).
-    DTMF_TONE_DURATION = 300
+    DTMF_TONE_DURATION = 100
 
     # Gep between two DTMF Digit generation in seconds (default 1 sec)
     # Change this timer to add gap between DTMF Digits
